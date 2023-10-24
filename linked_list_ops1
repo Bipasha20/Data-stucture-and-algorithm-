@@ -1,0 +1,319 @@
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+static int countdelete=0;
+static int counthead=0;
+struct Student
+{
+char stud_name[100];
+char regno[100];
+int mark1;
+int mark2;
+int mark3;
+float average;
+char grade;
+struct Student *next;
+struct Student *previous;
+};
+struct Student *head=NULL;
+void insert( char* name, char* reg, int m1,int m2,int m3,float avg,char gd)
+{
+struct Student *temp=head;
+struct Student *check=head;
+int flag=0;
+struct Student *s1 = (struct Student *) malloc(sizeof(struct Student));
+strcpy(s1->stud_name, name);
+strcpy(s1->regno, reg);
+s1->mark1=m1;
+s1->mark2=m2;
+s1->mark3=m3;
+s1->average=avg;
+s1->grade=gd;
+s1->previous= NULL;
+s1->next=NULL;
+while(check!=NULL)
+{
+if(strcmp(check->regno,reg)==0)
+{
+flag=1;
+}
+check=check->next;
+}
+if(flag==1)
+{
+printf("%s already exists.\n",reg);
+free(s1);
+return;
+}
+else
+{
+counthead++;
+ if(head==NULL)
+{
+ head = s1;
+ temp=head;
+ }
+ else
+{
+ temp=head;
+ s1->next=head;
+ temp->previous=s1;
+ head=s1;
+ }
+}
+return;
+printf("TIMES ARE %d",counthead);
+}
+void display_seprate(struct Student *t)
+{
+printf("Registration no. %s\n", t->regno);
+ printf("Name: %s\n", t->stud_name);
+ printf("Mark1 %d\n", t->mark1);
+ printf("Mark2 %d\n", t->mark2);
+ printf("Mark3 %d\n", t->mark3);
+ printf("Average %f\n",t->average);
+ printf("Grade %c\n",t->grade);
+}
+void displayGradeS()
+{
+struct Student *tempS=head;
+int countS=0;
+while(tempS!=NULL)
+{
+if(tempS->grade=='S')
+{
+countS=countS+1;
+display_seprate(tempS);
+}
+tempS=tempS->next;
+}
+printf("Number of S grade students are: %d\n",countS);
+}
+void displayGradeA()
+{
+struct Student *tempA=head;
+int countA=0;
+while(tempA!=NULL)
+{
+if(tempA->grade=='A')
+{
+countA=countA+1;
+ display_seprate(tempA);
+}
+tempA=tempA->next;
+}
+printf("Number of A grade students are: %d\n",countA);
+}
+void displayGradeB()
+{
+struct Student *tempB=head;
+int countB=0;
+while(tempB!=NULL)
+{
+if(tempB->grade=='B')
+{
+countB=countB+1;
+ display_seprate(tempB);
+}
+tempB=tempB->next;
+}
+printf("Number of B grade students are: %d\n",countB);
+}
+void displayGradeC()
+{
+struct Student *tempC=head;
+int countC=0;
+while(tempC!=NULL)
+{
+if(tempC->grade=='C')
+{
+countC=countC+1;
+ display_seprate(tempC);
+}
+tempC=tempC->next;
+}
+printf("Number of C grade students are: %d\n",countC);
+}
+void displayGradeD()
+{
+struct Student *tempD=head;
+int countD=0;
+while(tempD!=NULL)
+{
+if(tempD->grade=='D')
+{
+countD=countD+1;
+ display_seprate(tempD);
+}
+tempD=tempD->next;
+}
+printf("Number of D grade students are: %d\n",countD);
+}
+void displayGradeE()
+{
+struct Student *tempE=head;
+int countE=0;
+while(tempE!=NULL)
+{
+if(tempE->grade=='E')
+{
+countE=countE+1;
+ display_seprate(tempE);
+}
+tempE=tempE->next;
+}
+printf("Number of E grade students are: %d\n",countE);
+}
+void displayGradeF()
+{
+struct Student *tempF=head;
+int countF=0;
+while(tempF!=NULL)
+{
+if(tempF->grade=='F')
+{
+countF=countF+1;
+ display_seprate(tempF);
+}
+tempF=tempF->next;
+}
+printf("Number of F grade students are: %d\n",countF);
+}
+void display()
+{
+struct Student *temps = head;
+while(temps!=NULL)
+{
+printf("Registration no. %s\n", temps->regno);
+ printf("Name: %s\n", temps->stud_name);
+ printf("Mark1 %d\n", temps->mark1);
+ printf("Mark2 %d\n", temps->mark2);
+ printf("Mark3 %d\n", temps->mark3);
+ printf("Average %f\n", temps->average);
+ printf("Grade %c\n",temps->grade);
+ temps = temps->next;
+}
+}
+void printDelete(struct Student *d)
+{
+while(d!=NULL)
+{
+display_seprate(d);
+d=d->next;
+}
+}
+void Delete()
+{
+struct Student *temp1 = head;
+struct Student *temp2 = head;
+struct Student *y=head;
+while(temp1!=NULL){
+if(temp1->grade=='F')
+{
+if(temp1==temp2){
+countdelete++;
+ head = temp1->next;
+ temp1->next->previous=NULL;
+// *count=*count +1;
+ free(temp1);
+ printf("No nodes prior\n");
+}
+else if(temp1->next==NULL)
+{
+temp2->next=NULL;
+free(temp1);
+printDelete(temp2);
+}
+else
+{
+temp2->next= temp1->next;
+temp1->next->previous=temp1->previous;
+free(temp1);
+printDelete(temp2);
+}
+printf("Record Successfully Deleted !!!\n");
+return;
+}
+temp2 = temp1;
+temp1 = temp1->next;
+}
+}
+int main()
+{
+head = NULL;
+int choice;
+int x,i;
+char name[100];
+char regno[100];
+int mark1,mark2,mark3;
+float average;
+char grade;
+printf("1. To insert student details\n2. To display student details\n3. To delete student details\n4. To 
+display student details gradewise \n5. To print number of times head is changed while insertion\n6. To 
+print number of times head is changed during deletion");
+do
+{
+printf("\nEnter Choice: ");
+scanf("%d", &choice);
+switch (choice)
+{
+case 1:
+printf("Enter mark1: ");
+scanf("%d", &mark1);
+printf("Enter mark2: ");
+scanf("%d", &mark2);
+printf("Enter mark3: ");
+scanf("%d", &mark3);
+printf("Enter name: ");
+scanf("%s", name);
+printf("Enter register number ");
+scanf("%s", regno);
+average=(mark1+mark2+mark3)/3.0;
+if(average>=90 && average<=100)
+grade='S';
+else if(average>=80 && average<90)
+grade='A';
+else if(average>=70 && average<80)
+grade='B';
+else if(average>=60 && average<70)
+grade='C';
+else if(average>=50 && average<60)
+grade='D';
+else if(average>=40 && average<50)
+grade='E';
+else
+grade='F';
+insert(name, regno, mark1,mark2,mark3,average,grade);
+break;
+case 2:
+display();
+break;
+case 3:
+Delete();
+break;
+case 4:
+printf("Details of student with S grade\n");
+displayGradeS();
+printf("Details of student with A grade\n");
+displayGradeA();
+printf("Details of student with B grade\n");
+displayGradeB();
+printf("Details of student with C grade\n");
+displayGradeC();
+printf("Details of student with D grade\n");
+displayGradeD();
+printf("Details of student with E grade\n");
+displayGradeE();
+printf("Details of student with F grade\n");
+displayGradeF();
+break;
+case 5:
+ printf("The number of times the head pointer changed during insertion %d\n",counthead);
+break;
+case 6:
+printf("The number of times head pointer changed during deletion is: %d\n",countdelete);
+default:
+printf("Wrong choice\n");
+}
+} while (choice != 0);
+}
