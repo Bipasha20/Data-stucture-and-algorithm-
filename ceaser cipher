@@ -1,0 +1,27 @@
+//ceaser cipher
+#include<stdio.h> 
+#include<conio.h> 
+int main() 
+{ 
+ int i, f; 
+ char arr[100], c; 
+ printf(" Enter text to be encrypted \n"); 
+ gets(arr); 
+ printf("Enter the shift \n"); 
+ scanf("%d", &f); 
+ for(i = 0; arr[i] !='\0'; i++) 
+ { 
+ c = arr[i]; 
+ if(c >= 'A' && c < 'Z') 
+ { 
+ c = c + f; 
+ if(c > 'Z') 
+ { 
+ c = 'Z' + 'A' - 1; 
+ } 
+ arr[i] = c; 
+ } 
+ } 
+ printf("Cipher text is : %s", arr); 
+ return 0; 
+} 
