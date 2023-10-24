@@ -1,0 +1,65 @@
+Given two sequences pushed and popped with distinct values, write a program to 
+return true if and only if this could have been the result of a sequence 
+of push and pop operations on an initially empty stack.
+#include <stdio.h>
+void main()
+{
+int n1, n2, n3, n4, i = 0, j = 0, a = 1, c=1;
+printf("Enter the number of values to be added in push array: ");
+scanf("%d", &n1);
+printf("Enter the number of values to be added in pop array: ");
+scanf("%d", &n2);
+int push[n1];
+int pop[n2];
+int arr[n1];
+for (n4 = 0; n4 <n2; n4++)
+{
+printf("Enter pop value %d:", (n4+1));
+scanf("%d", &pop[n4]);
+}
+for (n3 = 0; n3 <n1; n3++)
+{
+printf("Enter push value %d:", (n3+1));
+scanf("%d", &push[n3]);
+}
+goto jump;
+push:
+if (i < n1)
+{
+printf("push(%d)\n", push[i]);
+arr[i] = push[i];
+i++;
+goto jump;
+}
+else
+{
+printf("\n\n!!Thank you!!");
+goto end;
+}
+pop:
+if (j < n2)
+{
+printf("pop(%d)\n", push[i]);
+i--;
+j++;
+goto jump;
+}
+jump:
+if (push[i] == pop[j])
+{
+goto pop;
+}
+else
+{
+goto push;
+}
+end:
+if (i = n1 && j < n2)
+{
+printf("\nOutput:- 1");
+}
+else
+{
+printf("\nOutput:- 0");
+}
+}
